@@ -1,5 +1,4 @@
 function generar() {
-    // Obtener los valores ingresados por el usuario
     var cantidad = parseInt(document.getElementById('cantidad').value);
     var materia = document.getElementById('materia').value;
     var inicioParcial = new Date(document.getElementById('inicioParcial').value);
@@ -10,17 +9,14 @@ function generar() {
     var profesor = document.getElementById('nombre').value;
     var diasFestivos = document.getElementById('diaFestivo').value.split(',').map(festivo => new Date(festivo.trim()));
 
-    // Función para verificar si una fecha es un día de descanso (sábado o domingo)
     function esDiaDeDescanso(fecha) {
         return fecha.getDay() === 0 || fecha.getDay() === 6; // 0 = Domingo, 6 = Sábado
     }
 
-    // Función para verificar si una fecha es festivo
     function esFestivo(fecha, diasFestivos) {
         return diasFestivos.some(festivo => festivo.toDateString() === fecha.toDateString());
     }
 
-    // Función para obtener color de mes
     function obtenerColorMes(fecha) {
         const mes = fecha.getMonth();
         const colores = ['#FFCCCB', '#FFDEAD', '#ADFF2F', '#FFD700', '#FFB6C1', '#87CEFA', '#FF69B4', '#98FB98', '#DDA0DD', '#FF7F50', '#FFE4E1', '#B0E0E6'];
@@ -120,12 +116,11 @@ function generar() {
                 <thead>
                     <tr>
                         <th>Alumnos</th>
-                        ${fechas.map(fecha => `<th style="background-color: ${obtenerColorMes(fecha)};">${fecha.getDate()}/${fecha.getMonth() + 1}</th>`).join('')}
+            ${fechas.map(fecha => `<th style="background-color: ${obtenerColorMes(fecha)};">${fecha.toLocaleDateString('es-ES', { weekday: 'long' })} ${fecha.getDate()}/${fecha.getMonth() + 1}</th>`).join('')}
                     </tr>
                 </thead>
                 <tbody>
     `;
-
     for (var i = 1; i <= cantidad; i++) {
         html += `<tr>`;
         // Campo para el nombre del alumno
@@ -133,16 +128,20 @@ function generar() {
         for (var j = 0; j < fechas.length; j++) {
             var esInhabil = esDiaDeDescanso(fechas[j]) || esFestivo(fechas[j], diasFestivos);
             // Campo para el estatus (asistencia o falta)
-            var clase = esInhabil ? (esDiaDeDescanso(fechas[j]) ? 'finDeSemana' : 'festivo') : 'habil';
-            html += `<td class="${clase}"><select style="width: 60%;" onchange="cambiarEstado(this);">
-                <option value="">Seleccionar</option>
-                <option value="A">Asistencia</option>
-                <option value="F">Falta</option>
-            </select></td>`;
+            if (esInhabil) {
+                // Muestra "N/A" si es un día inhábil
+                html += `<td class="inhabil">N/A</td>`;
+            } else {
+                html += `<td class="habil"><select style="width: 60%;" onchange="cambiarEstado(this);">
+                    <option value="">Seleccionar</option>
+                    <option value="A">Asistencia</option>
+                    <option value="F">Falta</option>
+                </select></td>`;
+            }
         }
         html += `</tr>`;
     }
-
+    
     html += `
                 </tbody>
             </table>
