@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de listas</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="CSS/style.css">
+    <script src="js/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 </head>
 <body>
-        <h1>Generador de listass</h1> 
+    <h1>Generador de listas</h1> 
 
     <table border="1">
         <tr>
@@ -21,29 +23,28 @@
             <th><input id="cantidad" type="number" min="0"></th> 
             <th><input id="materia" type="text"></th>
             <th>De:</th>
-            <td><input id="inicio-parcial" type="date"></td>
+            <td><input id="inicioParcial" type="date"></td>
             <th>A:</th>
-            <td><input id="fin-parcial" type="date"></td>
+            <td><input id="finParcial" type="date"></td>
         </tr>
-        
         <tr>
             <th>Horas día:</th>
-            <td><input id="horas-dia"type="number" min="0"></td> 
+            <td><input id="horasDia" type="number" min="0"></td> 
             <th>Grupo</th>
             <th colspan="4">Días festivos</th>
         </tr>
         <tr>
             <th>Días a la semana:</th>
-            <td><input id="dias-semana" type="number" min="0"></td> 
+            <td><input id="diasSemana" type="number" min="0"></td> 
             <th><input id="grupo" type="text"></th>
-            <td colspan="4"><input type="date" style="width: 98%;"></td> 
+            <td colspan="4"><input id="diaFestivo" type="date" style="width: 98%;"></td> 
         </tr>
         <tr>
             <th colspan="3">Asignar maestro</th>
-            <th rowspan="2" colspan="4"><button id="boton-generar" type="button" class="btn btn-info btn-full">Generar <br>lista</button></th>
+            <th rowspan="2" colspan="4"><button id="boton-generar" type="button" class="btn btn-info btn-full" onclick="generar()">Generar <br>lista</button></th>
         </tr>
         <tr>
-            <th>Nombre:</th>
+            <th>Nombre:</th> 
             <td colspan="2"><input id="nombre" type="text"></td>
         </tr>
     </table>
