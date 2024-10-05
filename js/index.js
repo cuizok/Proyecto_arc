@@ -101,6 +101,8 @@ function generar() {
                         celda.style.backgroundColor = ''; // Color por defecto
                     }
                 }
+
+            
             </script>
         </head>
         <body>
@@ -116,11 +118,12 @@ function generar() {
                 <thead>
                     <tr>
                         <th>Alumnos</th>
-            ${fechas.map(fecha => `<th style="background-color: ${obtenerColorMes(fecha)};">${fecha.toLocaleDateString('es-ES', { weekday: 'long' })} ${fecha.getDate()}/${fecha.getMonth() + 1}</th>`).join('')}
+                        ${fechas.map(fecha => `<th style="background-color: ${obtenerColorMes(fecha)};">${fecha.toLocaleDateString('es-ES', { weekday: 'long' })} ${fecha.getDate()}/${fecha.getMonth() + 1}</th>`).join('')}
                     </tr>
                 </thead>
                 <tbody>
     `;
+
     for (var i = 1; i <= cantidad; i++) {
         html += `<tr>`;
         // Campo para el nombre del alumno
@@ -141,10 +144,11 @@ function generar() {
         }
         html += `</tr>`;
     }
-    
+
     html += `
                 </tbody>
             </table>
+            <button id="boton-imprimir" class="btn btn-primary" onclick="window.print();">Generar reporte</button>
         </body>
         </html>
     `;
